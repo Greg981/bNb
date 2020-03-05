@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>SynBNB-{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{ asset ('assets/css/boostrap.min.css') }}">
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+    {% include  "template_parts/_nav.html.twig"%}
+        {% block body %}{% endblock %}
+
+<script src="{{ asset ('assets/js/jquery.min.js') }}"></script>
+<script src="{{ asset ('assets/js/popper.min.js') }}"></script>
+<script src="{{ asset ('assets/js/boostrap.min.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
