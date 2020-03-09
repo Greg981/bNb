@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Ad;
+
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
+
+/**
+ * @method Add|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Add|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Add[]    findAll()
+ * @method Add[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class AdRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, Ad::class);
+    }
+
+    // /**
+    //  * @return Add[] Returns an array of Add objects
+    //  */
+    /*
+    public function findByExampleField($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?Add
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+    */
+}

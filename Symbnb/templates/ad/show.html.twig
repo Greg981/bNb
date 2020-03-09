@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ ad.title }}{% endblock %}
+
+{% block body %}
+<div class="container mt-3 mb-3" style="background-image: url({{ ad.coverImage }})">
+    <h1>{{ad.title }}</h1>
+
+            <p>{{ ad.introduction }}</p>
+            <p class="h2">
+                <strong>{{ ad.rooms}} rooms </strong> for <strong> {{ ad.price }}&euro; </strong> per night
+            </p>
+        <a href="#" class="btn btn-primary mb-3">Book !</a>
+     
+</div>
+
+{# WHY THIS SHIT IS NOT WORKING ??????? 
+    <div class="ad-title" style="background-image: url({{ ad.coverImage }})">
+        <div class="container">
+            <h1>{{ ad.title }}</h1>
+            <p>{{ ad.introduction }}</p>
+            <p class="h2">
+                <strong>{{ ad.rooms}} rooms </strong> for <strong> {{ ad.price }}&euro; </strong> per night
+            </p>
+        <a href="#" class="btn btn-primary">Book !</a>
+        </div>
+    </div> #}
+
+<div class="container ">
+    <div class="row " >
+        <div class="col-md-8 mb-3">
+            {{ ad.content | raw }}
+
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for pic in ad.pics %}
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active" {% endif %} ></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for pic in ad.pics %}
+                    <div class="carousel-item {% if loop.first %} active {% endif %}">
+                            <img src="{{ pic.url }}" class="d-block w-100" alt="Caroussel Slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h4>{{ ad.title }}</h4>
+                            <p>{{ pic.caption }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row mb-2">
+                <div class="col-4">
+                    <img src="http://placehold.it/64x64" alt="avatar">
+                </div>
+                <div class="col">
+                    <h3> YOYO DANS LA LUNE </h3>
+                   <span class="badge badge-primary"> 3 offers </span>
+                </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel eaque sunt quis veritatis non excepturi nemo dicta neque. Laborum, illum.</p>
+            <p>Totam tempora perspiciatis odit corporis rerum fugit! Maiores, eaque beatae. Officia dignissimos debitis perspiciatis iure necessitatibus ipsam molestiae voluptatibus tempore.</p>
+            <p>Inventore aliquid assumenda minus ex tempore aspernatur, vero necessitatibus dolore. Atque optio excepturi consectetur inventore quod praesentium earum architecto quibusdam?</p>
+
+        </div>
+    </div>
+</div>
+              
+      
+{% endblock %}

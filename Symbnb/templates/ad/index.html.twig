@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Our fantastic offers!!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="my-3">Here are the ads from our owner !!!!</h1>
+
+    <div class="row">
+        {% for ad in ads %}
+        {# create a twig variable to give the url path in href!  DO NOT REPEAT YOURSELF #}
+        {% set url = path ('ads_show', {'slug': ad.slug }) %} 
+
+
+
+            <div class="col-md-4">
+                <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                        {{ ad.rooms }} rooms, <strong>{{ ad.price }}&euro; / night</strong> <br>
+                        <small>Not ranked yet</small>
+                    </div>
+                    <a href="{{ url }}">
+                        <img src="{{ ad.coverImage }}" alt="Nice pics" style="height: 200px; width: 100%; display: block">
+                    </a>   
+                        <div class="card-body">
+                            <h4 class="card-title">
+                            <a href="{{ url }}">
+                               {{ ad.title }}
+                            </a>
+                            </h4>
+                            <p class="card-text">
+                               {{ ad.introduction }}
+                            </p>
+                            <a href="{{ url }}" class="btn btn-secondary">Learn More</a>
+                        </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
