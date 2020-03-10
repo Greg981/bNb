@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Entity\Pics;
+use App\Form\AnnonceType;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class AdController extends AbstractController
 {
@@ -22,6 +26,91 @@ class AdController extends AbstractController
 
         return $this->render('ad/index.html.twig', [
             'ads' => $ads
+        ]);
+    }
+    
+    /**
+     * Create new Ad 
+     * 
+     * @Route("/ads/new", name="ads_create")
+     * 
+     * @return Response
+     */
+    
+    public function create(Request $request)
+    {
+        $ad = new Ad();
+
+        $form = $this->createForm(AnnonceType::class, $ad);
+
+        $form->handleRequest($request);
+            
+            
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            foreach ($ad->getPics() as $image) {
+                $image->setAd($ad);
+                $entityManager =$this->getDoctrine()->getManager();
+                $entityManager->persist($image);
+        }
+
+        $entityManager =$this->getDoctrine()->getManager();
+        $entityManager->persist($ad);
+        $entityManager->flush();
+            
+        $this->addFlash(
+            'success'," The ad <strong>{$ad->getTitle()}</strong> have been created !!"
+        );
+
+            return $this->redirectToRoute('ads_show', [
+                'slug' => $ad->getSlug()
+            ]);
+        }
+
+        return $this->render('ad/new.html.twig',[
+            'form' => $form->createView()
+
+        ]);
+    }
+
+     /**
+     * Show edit formular
+     * 
+     * @route("/ads/{slug}/edit" , name="ads_edit")
+     *
+     * @return Response
+     */
+
+    public function edit(Ad $ad, Request $request)
+    {
+        $form = $this->createForm(AnnonceType::class, $ad);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            foreach ($ad->getPics() as $image) {
+                $image->setAd($ad);
+                $entityManager =$this->getDoctrine()->getManager();
+                $entityManager->persist($image);
+        }
+
+        $entityManager =$this->getDoctrine()->getManager();
+        $entityManager->persist($ad);
+        $entityManager->flush();
+            
+        $this->addFlash(
+            'success'," The ad <strong>{$ad->getTitle()}</strong> have been modifyed !!"
+        );
+
+            return $this->redirectToRoute('ads_show', [
+                'slug' => $ad->getSlug()
+            ]);
+        }
+
+        return $this->render('ad/edit.html.twig', [
+            'form' => $form->createView(),
+            'ad' => $ad
         ]);
     }
 
@@ -44,4 +133,5 @@ class AdController extends AbstractController
            'ad' => $ad 
         ]);
     }
+
 }

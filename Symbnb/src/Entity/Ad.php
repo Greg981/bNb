@@ -3,15 +3,19 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
  * permet d'indiquer des element de vie 
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(
+ * fields={"title"},message="An another Ad already have the same title, please modify yours"
+ * )
  */
 class Ad
 {
@@ -24,6 +28,11 @@ class Ad
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "Your Title must be at least 10 characters long",
+     *      maxMessage = "Your first name cannot be longer than 255 characters")
      */
     private $title;
 
@@ -39,16 +48,23 @@ class Ad
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 20,
+     *      minMessage = "Your Introduction must be at least 20 characters long")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 100,
+     *      minMessage = "Your Content must be at least 100 characters long")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @assert\Url()
      */
     private $coverImage;
 
@@ -59,6 +75,7 @@ class Ad
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Pics", mappedBy="ad", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $pics;
 
