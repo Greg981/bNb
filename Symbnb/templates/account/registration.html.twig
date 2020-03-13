@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Account Registration{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <h1>Register on our Website !</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="summit" class="btn btn-success">Confirm Registration</button>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
