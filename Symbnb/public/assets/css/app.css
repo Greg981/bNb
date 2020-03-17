@@ -16,6 +16,15 @@ div.ad-title h1, div.ad-title p{
 }
 
 div.carousel-caption{
-    color: rgb(241, 21, 21);
-    
+    color: rgb(241, 21, 21);  
+}
+
+.avatar{
+    max-width: 128px;
+    max-height: 128px;
+    border-radius: 50%;
+}
+.avatar-medium{
+    max-width: 64px;
+    max-height: 64px;
 }

@@ -59,18 +59,17 @@
             </div>
         </div>
         <div class="col">
-            <div class="row mb-2">
-                <div class="col-4">
-                    <img src="http://placehold.it/64x64" alt="avatar">
+        {% set ad = ad.author %}
+            <div class="row mb-3 align-items-center">
+                <div class="col-3">
+                    <img src="{{ad.picture}}" class="avatar avatar-medium" alt="avatar of {{ad.fullName}}">
                 </div>
                 <div class="col">
-                    <h3> YOYO DANS LA LUNE </h3>
-                   <span class="badge badge-primary"> 3 offers </span>
+                    <h3> {{ad.fullName}} </h3>
+                   <span class="badge badge-primary">{{ad.ads | length}} offers </span>
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel eaque sunt quis veritatis non excepturi nemo dicta neque. Laborum, illum.</p>
-            <p>Totam tempora perspiciatis odit corporis rerum fugit! Maiores, eaque beatae. Officia dignissimos debitis perspiciatis iure necessitatibus ipsam molestiae voluptatibus tempore.</p>
-            <p>Inventore aliquid assumenda minus ex tempore aspernatur, vero necessitatibus dolore. Atque optio excepturi consectetur inventore quod praesentium earum architecto quibusdam?</p>
+            {{ad.description | raw}}
 
         </div>
     </div>
