@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
-use App\Entity\Pics;
 use App\Form\AnnonceType;
 use App\Repository\AdRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 class AdController extends AbstractController
 {
@@ -37,7 +37,7 @@ class AdController extends AbstractController
      * @return Response
      */
     
-    public function create(Request $request)
+    public function create(Request $request, EntityManagerInterface $manager)
     {
         $ad = new Ad();
 
@@ -50,13 +50,12 @@ class AdController extends AbstractController
         {
             foreach ($ad->getPics() as $image) {
                 $image->setAd($ad);
-                $entityManager =$this->getDoctrine()->getManager();
-                $entityManager->persist($image);
+                $manager->persist($image);
         }
+        $ad->setAuthor($this->getUser());
 
-        $entityManager =$this->getDoctrine()->getManager();
-        $entityManager->persist($ad);
-        $entityManager->flush();
+        $manager->persist($ad);
+        $manager->flush();
             
         $this->addFlash(
             'success'," The ad <strong>{$ad->getTitle()}</strong> have been created !!"
@@ -81,7 +80,7 @@ class AdController extends AbstractController
      * @return Response
      */
 
-    public function edit(Ad $ad, Request $request)
+    public function edit(Ad $ad, Request $request, EntityManagerInterface $manager)
     {
         $form = $this->createForm(AnnonceType::class, $ad);
 
@@ -91,13 +90,11 @@ class AdController extends AbstractController
         {
             foreach ($ad->getPics() as $image) {
                 $image->setAd($ad);
-                $entityManager =$this->getDoctrine()->getManager();
-                $entityManager->persist($image);
+                $manager->persist($image);
         }
 
-        $entityManager =$this->getDoctrine()->getManager();
-        $entityManager->persist($ad);
-        $entityManager->flush();
+        $manager->persist($ad);
+        $manager->flush();
             
         $this->addFlash(
             'success'," The ad <strong>{$ad->getTitle()}</strong> have been modifyed !!"

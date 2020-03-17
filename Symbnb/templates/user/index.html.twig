@@ -13,6 +13,13 @@
         </div>
         <div class="col-9">
             <h1>{{user.fullName}}</h1>
+            {% if user is same as(app.user)%}
+                <div class="mt-3">
+                    <a href="{{ path('account_profile') }}" class="btn btn-primary mr-2 mb-2"> Modify my Profile </a>
+                    <a href="{{ path('account_password') }}" class="btn btn-primary mb-2"> Modify my Password </a>
+                </div>
+            
+            {% endif %}
         </div>
     </div>
     {{user.description | raw}}
@@ -26,7 +33,7 @@
             {% endfor %}
         </div>
     {% else %}
-        <div class="alert alert-warnig">
+        <div class="alert alert-warning">
             <p>
                 <strong>{{user.fullName}}</strong> do not have any active offer at this time!!!
             </p>
