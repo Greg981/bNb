@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}You cannot access this function{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Oups ! It's look like you're trying to mess my website !!</h1>
+        <div class="alert alert-danger">
+            <p>
+            It's probably a mistake from you ! , No Worry , you can go back to Home Page without been blamed !! 
+            </p>
+        </div>
+        <a href="{{ path('home') }}" class="btn btn-primary">Back to home</a>
+    </div>
+
+{% endblock %}

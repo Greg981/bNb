@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}An error occured {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Oups ! It's look like our server return an internal error !!</h1>
+        <div class="alert alert-danger">
+            <p>
+            Something is broken. Please let us know what you were doing when this error occurred.
+             We will fix it as soon as possible. Sorry for any inconvenience caused.
+              No Worry , you can go back to Home Page !! 
+            </p>
+                <a href="{{ path('home') }}" class="btn btn-primary">Back to home</a>
+        </div>
+    </div>
+
+{% endblock %}
