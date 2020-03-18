@@ -6,9 +6,11 @@ use App\Entity\Ad;
 use App\Form\AnnonceType;
 use App\Repository\AdRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -33,6 +35,7 @@ class AdController extends AbstractController
      * Create new Ad 
      * 
      * @Route("/ads/new", name="ads_create")
+     * @IsGranted("ROLE_USER")
      * 
      * @return Response
      */
@@ -76,6 +79,7 @@ class AdController extends AbstractController
      * Show edit formular
      * 
      * @route("/ads/{slug}/edit" , name="ads_edit")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()", message="This ad is not yours ; You cannot modify it!!!")
      *
      * @return Response
      */
