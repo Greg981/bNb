@@ -3,28 +3,25 @@
 {% block title %}{{ ad.title }}{% endblock %}
 
 {% block body %}
-<div class="container mt-3 mb-3" style="background-image: url({{ ad.coverImage }})">
-    <h1>{{ad.title }}</h1>
 
-            <p>{{ ad.introduction }}</p>
-            <p class="h2">
-                <strong>{{ ad.rooms}} rooms </strong> for <strong> {{ ad.price }}&euro; </strong> per night
-            </p>
-        <a href="#" class="btn btn-primary mb-3">Book !</a>
-     
+<div class="ad-title" style="background-image: url({{ ad.coverImage }})">
+    <div class="container">
+        <h1>{{ ad.title }}</h1>
+        <p>{{ ad.introduction }}</p>
+        <p class="h2">
+            <strong>{{ ad.rooms}} rooms </strong> for <strong> {{ ad.price }}&euro; </strong> per night
+        </p>
+         <a href="#" class="btn btn-primary mb-3">Book !</a>
+
+            {% if app.user and app.user == ad.author %}
+                <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn 
+                btn-secondary mb-3">Modify your Ad</a>
+                <a href="{{ path('ads_delete', {'slug': ad.slug}) }} " class="btn btn-danger mb-3" 
+                onclick="return confirm(`Are you sure you want to delete the Ad :
+                 {{ad.title}} ? `)"> Delete your AD</a>
+            {% endif %}
+    </div>
 </div>
-
-{# WHY THIS SHIT IS NOT WORKING ??????? 
-    <div class="ad-title" style="background-image: url({{ ad.coverImage }})">
-        <div class="container">
-            <h1>{{ ad.title }}</h1>
-            <p>{{ ad.introduction }}</p>
-            <p class="h2">
-                <strong>{{ ad.rooms}} rooms </strong> for <strong> {{ ad.price }}&euro; </strong> per night
-            </p>
-        <a href="#" class="btn btn-primary">Book !</a>
-        </div>
-    </div> #}
 
 <div class="container ">
     <div class="row " >

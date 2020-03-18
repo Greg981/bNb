@@ -135,4 +135,28 @@ class AdController extends AbstractController
         ]);
     }
 
+
+    /**
+     * Delete Ad function
+     * 
+     *@Route("/ads/{slug}/delete", name="ads_delete")
+     *@Security("is_granted('ROLE_USER') and user === ad.getAuthor()", 
+     message="You don't have permission to access this function!!")
+     * 
+     * @param Ad $ad
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function delete(Ad $ad, EntityManagerInterface $manager)
+    {
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "The Ad <strong>{$ad->getTitle()}</strong> have correctly been deleted !"
+        );
+
+        return $this->redirectToRoute("ads_index");
+    }
 }

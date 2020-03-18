@@ -22,6 +22,9 @@
                     {{ ad.introduction }}
                 </p>
                 <a href="{{ url }}" class="btn btn-secondary">Learn More</a>
+                {% if app.user and app.user == ad.author %}
+                    <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Modify your Ad</a>
+                {% endif %}
         </div>
     </div>
 </div>
