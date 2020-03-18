@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Book ad  {{ ad.title}}  !{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Book ad : {{ ad.title}} ✅ </h1>
+        <p> You're ready to book : <strong>{{ ad.author.fullname }}</strong>
+        , tell us your need, we will take care of the crapy parts !!</p>
+
+        {{ form_start(form) }}
+        <div class="alert alert-light">
+            <h2> First let's start by your desired date !</h2>
+            <div class="row">
+                <div class="col">
+                   {{ form_row(form.startDate)}} 
+                </div>
+                <div class="col">
+                    {{ form_row(form.endDate)}} 
+                </div>
+            </div>
+        </div>
+            <h4> Total Amount : <span id="amount">....</span>&euro;</h4>
+            <span id="days">0</span> night(s) at {{ad.price}} / night
+        <div class="alert alert-light">
+            <h2> Any comments ?</h2>
+            {{ form_row(form.comment) }}
+        </div>
+            <h2> You have finish !</h2>
+            <p>Your dream vaccation ? Work rental ? No matter, we are with you !!!</p>
+
+            <button type="submit" class="btn btn-success"> Book!</button>
+            {{form_end(form)}}
+    </div>
+{% endblock %}
