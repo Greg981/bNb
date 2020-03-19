@@ -113,7 +113,7 @@ class Booking
         $result = range(
             $this->startDate->getTimestamp(),
             $this->endDate->getTimestamp(),
-            24 * 64 * 60 * 1000
+            24*60*60
         );
 
         $days = array_map(function($dayTimestamp) {

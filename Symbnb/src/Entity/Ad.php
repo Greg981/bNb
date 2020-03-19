@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -128,7 +129,7 @@ class Ad
           $result = range(
             $booking->getStartDate()->getTimestamp(),
             $booking->getEndDate()->getTimestamp(),
-            24*60*60*1000
+            24*60*60
           );
          
           $days = array_map(function($dayTimestamp){
@@ -137,7 +138,7 @@ class Ad
 
           $notAvailableDays = array_merge($notAvailableDays, $days);
        }
-       return $notAvailableDays;
+       return $this->$notAvailableDays;
     }
 
     public function getId(): ?int
