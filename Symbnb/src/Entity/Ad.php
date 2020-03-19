@@ -114,6 +114,32 @@ class Ad
         }
     }
 
+    /**
+     * Make an array of Accomodation not available days(previous booking)
+     *
+     * @return array arrays of DateTime for accomodation booked days
+     */
+    public function getNotAvalaibleDays()
+    {
+       $notAvailableDays =[];
+
+       foreach ($this->bookings as $booking) {
+          // Calcule how many days between check-in and check-out
+          $result = range(
+            $booking->getStartDate()->getTimestamp(),
+            $booking->getEndDate()->getTimestamp(),
+            24*60*60*1000
+          );
+         
+          $days = array_map(function($dayTimestamp){
+           return new \DateTime(date('Y-m-d', $dayTimestamp)); 
+          }, $result);
+
+          $notAvailableDays = array_merge($notAvailableDays, $days);
+       }
+       return $notAvailableDays;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

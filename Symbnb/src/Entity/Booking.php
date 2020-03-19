@@ -33,12 +33,14 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("DateTime")
      * @Assert\NotBlank 
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Type("DateTime")
      * @Assert\NotBlank
      */
     private $endDate;
@@ -77,6 +79,48 @@ class Booking
             // Ad price * number of days
             $this->amount = $this->ad->getPrice() * $this->getDuration();
         }
+    }
+
+
+
+    public function isBookableDates()
+    { // 1 need to determine already booked date
+      $notAvailableDays = $this->ad->getNotAvalaibleDays();
+      // 2 need to compare choosen date with already booked date   
+        $bookingDays    = $this->getDays();
+        $formatDay      = function($day){
+            return $day->format('Y-m-d');
+        };
+
+        //  Days array of string  
+        $days           = array_map($formatDay, $bookingDays);
+        $notAvailable   = array_map($formatDay, $notAvailableDays);
+
+        foreach($days as $day) {
+            if(array_search($day, $notAvailable) !== false) return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get an array of days corresponding to the booking
+     *
+     * @return array  arrays of DateTime for accomodation current booking days
+     */
+    public function getDays()
+    {
+        $result = range(
+            $this->startDate->getTimestamp(),
+            $this->endDate->getTimestamp(),
+            24 * 64 * 60 * 1000
+        );
+
+        $days = array_map(function($dayTimestamp) {
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+        }, $result);
+
+        return $days;
     }
 
     public function getDuration()
