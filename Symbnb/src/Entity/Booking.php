@@ -3,8 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\PrePersist;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -34,11 +33,13 @@ class Booking
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank 
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank
      */
     private $endDate;
 

@@ -19,7 +19,7 @@ class BookingType extends ApplicationType
             ->add('endDate', DateType::class, $this->getConfiguration("Check-out date", 
             "Enter your Check-out date", ["widget" => "single_text"]))
             ->add('comment', TextareaType::class, $this->getConfiguration(false,
-            "If you have a comment, please let us know! "))
+            "If you have a comment, please let us know! ", ["required" => false]))
         ;
     }
 
