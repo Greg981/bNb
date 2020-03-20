@@ -55,7 +55,7 @@
                     </div>
                     <div class="row">
                         <dt class="col-md4">Comments :</dt>
-                        <dd class="col-md-8">{{booking.comment}}</dd>
+                        <dd class="col-md-8">{{booking.comment | default('no comment')}}</dd>
                     </div>
 
                     <hr>
@@ -79,21 +79,45 @@
 
                     <a href=" {{ path("user_show", {'slug': author.slug}) }}" class="btn btn-primary"> More info from {{author.firstName}}</a>
                </div> 
+
+               <div class="alert alert-light" id="comment">
+                    <h2 class="alert-heading">Your opinion matter !</h2>
+                    {% if date() > date(booking.endDate) %}
+
+                        {% set comment = booking.ad.commentFromAuthor(app.user) %}
+                            {% if comment is not null %}
+                                <blockquote>
+                                    {{comment.content}}
+                                </blockquote>
+
+                                <strong> Score : </strong>  
+                                {% include "template_parts/_rating.html.twig" with {'rating': comment.rating } %}
+                            {% else %} 
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                <button type="submit" class="btn btn-success">Send !</button>
+                                {{ form_end(form) }}
+                            {% endif %}
+
+                    {% else %}
+                        <p>You cannot comment the ad before the end of your trip!</p>
+                    {% endif %}
+               </div>
             </div>
             <div class="col">
-            <div class="alert alert-light">
-                <h2 class="alert-heading"> Your Accomodation</h2>
+                <div class="alert alert-light">
+                    <h2 class="alert-heading"> Your Accomodation</h2>
 
-                <h4>
-                    <a href="{{ path('ads_show', {'slug': ad.slug}) }}">{{ad.title}}</a>
-                </h4>
+                    <h4>
+                        <a href="{{ path('ads_show', {'slug': ad.slug}) }}">{{ad.title}}</a>
+                    </h4>
 
-                <img src="{{ad.coverImage}}" alt="{{ad.title}} picture" class="img-fluid">
+                    <img src="{{ad.coverImage}}" alt="{{ad.title}} picture" class="img-fluid">
 
-                {{ad.content | raw}}
+                    {{ad.content | raw}}
 
-                <a href="{{path('ads_show', {'slug': ad.slug}) }}" class="btn btn-primary"> More info</a>
-            </div>
+                    <a href="{{path('ads_show', {'slug': ad.slug}) }}" class="btn btn-primary"> More info</a>
+                </div>
             </div>
         </div>
     </div>

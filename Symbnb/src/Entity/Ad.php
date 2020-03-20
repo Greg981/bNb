@@ -4,6 +4,7 @@ namespace App\Entity;
 
 
 
+use App\Entity\User;
 use App\Entity\Booking;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
@@ -113,7 +114,6 @@ class Ad
     *
     *@return void
     */ 
-
     public function initializeSlug()
     {
         if (empty($this->slug)) 
@@ -121,6 +121,39 @@ class Ad
            $slugify = new Slugify();
            $this->slug = $slugify->slugify($this->title);
         }
+    }
+
+    /**
+     * Allow to get the comment from an author on a specific ad
+     *
+     * @param User $author
+     * @return Comment|null
+     */
+    public function getCommentFromAuthor(User $author)
+    {
+        foreach($this->comments as $comment)
+        {
+            if ($comment->getAuthor() === $author) return $comment; 
+        }
+        
+        return null;
+    }
+
+    /**
+     * Allow to get Ad average rating
+     *
+     * @return float
+     */
+    public function getAvgRatings()
+    {   // make sum of all ratings
+        $sum = array_reduce($this->comments->toArray(), function($total , $comment){
+            return $total + $comment->getRating();
+        }, 0);
+
+        // divide sum to get average 
+       if(count($this->comments) > 0) return $sum / count($this->comments);
+
+       return 0;
     }
 
     /**
