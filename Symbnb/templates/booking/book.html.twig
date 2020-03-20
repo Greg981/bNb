@@ -23,15 +23,17 @@ integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="ano
                     {{ form_row(form.endDate)}} 
                 </div>
             </div>
-        </div>
-            <h4> Total Amount : <span id="amount">....</span>&euro;</h4>
+            <h4> Total Amount : <span id="amount">...</span>&euro;</h4>
             <span id="days">0</span> night(s) at {{ad.price}} € / night
-        <div class="alert alert-light">
-            <h2> Any comments ?</h2>
+
+            <h4 class="mt-3"> Any comments ?</h4>
             {{ form_row(form.comment) }}
         </div>
-            <h2> You have finish !</h2>
-            <p>Your dream vaccation ? Work rental ? No matter, we are with you !!!</p>
+        
+            <h2> You have finish !</h2>           
+                <p>
+                    <strong>Your dream vaccation ? Work rental ? No matter why, we are with you !!!</strong>
+                </p>
 
             <button type="submit" class="btn btn-success"> Book!</button>
             {{form_end(form)}}
@@ -42,6 +44,7 @@ integrity="sha256-siyOpF/pBWUPgIcQi17TLBkjvNgNQArcmwJB8YvkAgg=" crossorigin="ano
 integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="anonymous"></script>
 
 <script>
+    {# datepicker script for calendar #}
     $(document).ready(function(){
        $('#booking_startDate, #booking_endDate').datepicker({
            format: 'dd/mm/yyyy',
@@ -52,7 +55,35 @@ integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="ano
            ],
            startDate: new Date()
        }); 
-    })
+
+       $('#booking_startDate, #booking_endDate').on('change', calculateAmount);
+    });
+
+    {# Amount and date script for formular auto completion price & night #}
+    function calculateAmount(){
+        // get dates
+        const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/,
+         '$3-$2-$1'));
+            // convert from  18/03/2020
+            // thanks to regular expression : (\d+)\/(\d+)\/(\d{4})
+            // to 2020-03-18
+
+        const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/,
+         '$3-$2-$1'));
+
+        if(startDate && endDate && startDate < endDate){
+            const DAY_TIME = 24 * 60 * 60 * 1000; // Timestamp in millisecs ! JAVASCRIPT
+
+            const interval = endDate.getTime() - startDate.getTime(); // get interval end start
+            const days = interval / DAY_TIME;  // transform into days
+            const amount = days * {{ ad.price }}; // calculate price from days and ad.price
+
+            $('#days').text(days);
+            $('#amount').text(amount.toLocaleString('fr-FR'));
+        }
+    }
+
+
 </script>
 
     

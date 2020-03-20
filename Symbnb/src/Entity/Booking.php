@@ -36,6 +36,7 @@ class Booking
      * @ORM\Column(type="datetime")
      * @Assert\Type("DateTime")
      * @Assert\NotBlank 
+     * @Assert\GreaterThan("today", message="check-in day must after today date" )
      */
     private $startDate;
 
@@ -43,6 +44,7 @@ class Booking
      * @ORM\Column(type="datetime")
      * @Assert\Type("DateTime")
      * @Assert\NotBlank
+     * @Assert\GreaterThan(propertyPath="startDate", message="check-out day must be after check-in date" )
      */
     private $endDate;
 
@@ -114,7 +116,7 @@ class Booking
         $result = range(
             $this->startDate->getTimestamp(),
             $this->endDate->getTimestamp(),
-            24*60*60
+            24*60*60 /** Timestamp PHP in seconds */
         );
 
         $days = array_map(function($dayTimestamp) {
