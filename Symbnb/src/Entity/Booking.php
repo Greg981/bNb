@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Ad;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -85,7 +86,7 @@ class Booking
 
     public function isBookableDates()
     { // 1 need to determine already booked date
-      $notAvailableDays = $this->ad->getNotAvalaibleDays();
+      $notAvailableDays = $this->ad->getNotAvailableDays();
       // 2 need to compare choosen date with already booked date   
         $bookingDays    = $this->getDays();
         $formatDay      = function($day){

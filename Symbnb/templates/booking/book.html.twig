@@ -49,9 +49,12 @@ integrity="sha256-bqVeqGdJ7h/lYPq6xrPv/YGzMEb6dNxlfiTUHSgRCp8=" crossorigin="ano
                {% for day in ad.notAvailableDays %}
                  "{{ day.format('d/m/Y') }}", 
                {% endfor %}
-           ]
+           ],
+           startDate: new Date()
        }); 
     })
 </script>
+
+    
 
 {% endblock %}

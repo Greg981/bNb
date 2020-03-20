@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 
+
+use App\Entity\Booking;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -120,7 +122,7 @@ class Ad
      *
      * @return array arrays of DateTime for accomodation booked days
      */
-    public function getNotAvalaibleDays()
+    public function getNotAvailableDays()
     {
        $notAvailableDays =[];
 
@@ -138,7 +140,7 @@ class Ad
 
           $notAvailableDays = array_merge($notAvailableDays, $days);
        }
-       return $this->$notAvailableDays;
+       return $notAvailableDays;
     }
 
     public function getId(): ?int
