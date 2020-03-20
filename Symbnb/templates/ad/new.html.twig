@@ -21,33 +21,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        $('#add-image').click(function(){
-            // je recupere le numero des futurs champs que je vais creer
-            const index = +$('#widgets-counter').val();
-
-            // je recupere le prototype des entrees 
-            const template = $('#annonce_pics').data('prototype').replace(/_name_/g, index);
-
-           // j'injecte ce code au sein de la div
-            $('#annonce_pics').append(template);
-
-            $('#widgets-counter').val(index + 1);
-
-            // manage delete button
-            handleDeleteButtons();
-        });
-
-        // Creating button delete function
-        function handleDeleteButtons(){
-            $('button[data-action="delete"]').click(function(){
-                const target = this.dataset.target;
-                $(target).remove();
-            });
-        }
-
-            // manage delete button
-            handleDeleteButtons();
-
-    </script>
+    <script src="/assets/js/ad.js"></script>
 {% endblock %}

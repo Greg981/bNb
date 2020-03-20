@@ -54,6 +54,23 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
+
+            <hr>
+            {% if ad.comments|length >0 %}
+                <h2 class="mb-3">Previous Guest Comments</h2>
+                {% for comment in ad.comments %}
+                    <div class="bg-light rounded mb-3 py-3 px-3">
+                        <strong>{{ comment.author.fullName }}</strong> say :
+                        <blockquote>
+                            {{ comment.content }}
+                        </blockquote>
+                        <strong> Rating gived by : {{comment.author.fullName}} : </strong>
+                       {% include "template_parts/_rating.html.twig" with {'rating': comment.rating} %} 
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h2> This ad have not been rated yet !!</h2>
+            {% endif %}
         </div>
         <div class="col">
         {% set ad = ad.author %}
