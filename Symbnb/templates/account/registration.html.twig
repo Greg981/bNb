@@ -5,11 +5,41 @@
 {% block body %}
 
 <div class="container">
-    <h1>Register on our Website !</h1>
+    <h1 class="my-2">Register on our Website !</h1>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="summit" class="btn btn-success">Confirm Registration</button>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2 class="alert-heading"> General Information</h2>
+                    <hr>
+                    {{ form_row(form.firstName) }}
+                    {{ form_row(form.lastName) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.picture) }}
+                </div>
+                <div class="alert alert-light">
+                     <h2 class="alert-heading"> Password</h2>
+                     <hr>
+                    {{ form_row(form.hash) }}
+                    {{ form_row(form.passwordConfirm) }}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2 class="alert-heading"> Details</h2>
+                    <hr>
+                    {{ form_row(form.introduction) }}
+                    {{ form_row(form.description) }}
+                    <hr>
+                    <p>You're nearly done ; now you have to : </p>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i>
+                        Confirm your Registration 
+                    </button>
+                </div>
+            </div>
+        </div> 
     {{ form_end(form) }}
 </div>
 

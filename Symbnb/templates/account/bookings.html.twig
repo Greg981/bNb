@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>My Bookings</h1>
+        <h1 class="my-2">My Bookings</h1>
         <div class="alert alert-info mt-2">
             <p>Find below all your previous and up coming Bookings</p>
         </div>
@@ -13,7 +13,7 @@
             {% set ad = booking.ad %}
         <div class="alert alert-light">
             <div class="row mt-3">
-                <div class="col-4">
+                <div class="col-md-4">
                     <img src="{{ad.coverImage}}" alt="Ad picture 
                     {{ad.title}}" class="img-fluid">
 
@@ -30,12 +30,12 @@
                         {% endif %}
                   </div>  
                 </div>
-                <div class="col-8">
+                <div class="col-md-8">
                     <h4>{{booking.ad.title}}</h4>
                     <p>
-                        Booking <strong>n#{{booking.id}}</strong><br>
+                        Booking <strong>n # {{booking.id}}</strong><br>
                         from {{booking.startDate|date('d/m/Y')}} to 
-                            {{booking.endDate|date('d/m/Y')}} {{booking.amount}} &euro;
+                            {{booking.endDate|date('d/m/Y')}} for a total amount : {{booking.amount | number_format(2, ',', ' ')}} &euro;
                     </p>
                     <a href="{{ path('booking_show', {'id': booking.id}) }}" class="btn btn-info">More info</a>
                 </div>
