@@ -1,0 +1,46 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Bookings Admin dashboard!{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <h1 class="my-3">Manage Bookings ✅</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Guest</th>
+                <th class="text-center">Ad Title</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}  
+            <tr>
+                <td>{{booking.id}}</td>
+                <td>{{booking.createdAt | date('d/m/Y H:i')}}</td>
+                <td><img src="{{booking.booker.picture}}" alt="Avatar of {{booking.booker.fullname}}"
+                class="avatar avatar-mini mr-2">
+                {{booking.booker.fullName}}
+                </td>
+                <td>{{ booking.content }}</td>
+                <td class="text-center">
+                    <span class="badge badge-dark">{{comment.rating | number_format(1, ',', ' ')}}</span>
+                </td>
+                <td class="text-center">
+                    <span class="badge badge-primary rounded">{{comment.ad.title}}</span>
+                </td>
+
+                <td>
+                    <a href="#" class="btn btn-primary my-1"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

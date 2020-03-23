@@ -56,6 +56,7 @@ class AdminCommentController extends AbstractController
             'comment' => $comment,
             'form' =>$form->createView()
        ]);
+
     }
 
     /**

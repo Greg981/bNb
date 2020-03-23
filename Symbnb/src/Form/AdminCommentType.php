@@ -16,7 +16,7 @@ class AdminCommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'label' => "Comment Content",
                 'attr'  => [
-                    'placeholder' => "Modify comment  !"
+                    'placeholder' => "Modify/Change comment  !"
                 ]
             ])
 

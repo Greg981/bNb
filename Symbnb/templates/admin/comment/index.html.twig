@@ -10,11 +10,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date</th>
-                <th>Author</th>
+                <th class="text-center">Date</th>
+                <th class="text-center">Author</th>
                 <th class="text-center">Comment</th>
                 <th class="text-center">Rating</th>
-                 <th>Ad</th>
+                 <th class="text-center">Ad Title</th>
                 <th></th>
             </tr>
         </thead>
@@ -27,16 +27,17 @@
                 class="avatar avatar-mini mr-2">
                 {{comment.author.fullName}}
                 </td>
-                <td class="text-center">
-                    <span class="badge badge-primary rounded">{{comment.ad.title}}</span>
-                </td>
+                <td>{{ comment.content }}</td>
                 <td class="text-center">
                     <span class="badge badge-dark">{{comment.rating | number_format(1, ',', ' ')}}</span>
+                </td>
+                <td class="text-center">
+                    <span class="badge badge-primary rounded">{{comment.ad.title}}</span>
                 </td>
 
                 <td>
                     <a href="{{ path('admin_comment_edit', {'id': comment.id}) }}" class="btn btn-primary my-1"><i class="fas fa-edit"></i></a>
-                    <a href"{{ path('admin_comment_delete', {'id': comment.id}) }}" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>
+                    <a href="{{ path('admin_comment_delete', {'id': comment.id}) }}" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             {% endfor %}
