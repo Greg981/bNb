@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Ad;
 use App\Entity\Booking;
 use App\Form\AdminBookingType;
-use App\Repository\BookingRepository;
+use App\Service\Pagination;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,14 +13,16 @@ use Symfony\Component\HttpFoundation\Request;
 class AdminBookingController extends AbstractController
 {
     /**
-     * @Route("/admin/bookings", name="admin_booking_index")
+     * @Route("/admin/bookings/{page<\d+>?1}", name="admin_booking_index")
      */
-    public function index(BookingRepository $repo)
+    public function index($page, Pagination $pagination)
     {
-        $booking = $repo->findAll();
+        $pagination->setEntityClass(Booking::class)
+                   ->setPage($page);
+
 
         return $this->render('admin/booking/index.html.twig', [
-            'bookings' => $booking,
+            'pagination' => $pagination
         ]);
     }
 
@@ -77,7 +78,7 @@ class AdminBookingController extends AbstractController
     
             $this->addFlash(
                 'success',
-                "Booking  of <bold>{$booking->getBooker()->getFullname()}</bold>  from Ad XXXX have succefully been removed !"
+                "Booking  of :<bold>{$booking->getBooker()->getFullname()}</bold>  from Ad :{$booking->getAd()->getTitle()} have succefully been removed !"
             );
 
             return $this->redirectToRoute("admin_booking_index");

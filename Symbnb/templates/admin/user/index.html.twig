@@ -1,0 +1,56 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %}Users Admin dashboard!{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <h1 class="my-3">Manage User ✅</h1>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th class="text-center">Active Bookings</th>
+                <th class="text-center">Active Ads</th>
+                <th class="text-center">Comment Posted</th>
+                <th class="text-center">Avg Rating</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}  
+            <tr>
+                <td>{{user.id}}</td>
+                <td><img src="{{user.picture}}" alt="Avatar of {{user.fullname}}"
+                class="avatar avatar-mini mr-2">
+                {{user.fullName}}
+                <td>{{ user.email }}</td>
+                <td class="text-center">
+                    <span class="badge badge-dark">{{ user.bookings | length }}</td> </span>
+                </td> 
+                 <td class="text-center">
+                    <span class="badge badge-dark">{{ user.ads | length }}</td> </span>
+                </td>
+                <td class="text-center">
+                    <span class="badge badge-dark">{{ user.comments | length }}</td> </span>
+                </td>
+                <td class="text-center">
+                     {# <span class="badge badge-dark">{{user.rating | number_format(1, ',', ' ')}}</span>  #}
+                </td>
+                <td class="text-center">
+                    {# <span class="badge badge-primary rounded">{{comment.ad.title}}</span> #}
+                </td>
+
+                <td>
+                    <a href="#" class="btn btn-primary my-1"><i class="fas fa-edit"></i></a>
+                    <a href="#" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

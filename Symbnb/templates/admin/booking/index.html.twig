@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for booking in bookings %}  
+            {% for booking in pagination.data %}  
             <tr>
                 <td>{{booking.id}}</td>
                 <td>{{booking.createdAt | date('d/m/Y H:i')}}</td>
@@ -31,12 +31,30 @@
                 <td>{{ booking.amount| number_format(2, ',', ' ')}} &euro;</td>   
                 <td>
                     <a href="{{ path('admin_booking_edit', {'id': booking.id}) }}" class="btn btn-primary my-1"><i class="fas fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>
+                    <a href="{{ path('admin_booking_delete', {'id': booking.id}) }}" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+    {% set page = pagination.page %}
+    {% set pages = pagination.pages %}
+
+        <ul class="pagination">
+            <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                <a class="page-link" href="{{path('admin_booking_index', {'page': page - 1}) }}">&laquo;</a>
+            </li>
+            {% for i in 1..pages %}
+            <li class="page-item {% if page == i %} active{% endif %}">
+                <a class="page-link" href="{{ path('admin_booking_index', {'page': i}) }}">{{ i }}</a>
+            </li>       
+            {% endfor %}
+            <li class="page-item {% if page == pages %}disabled{% endif %}">
+                <a class="page-link" href="{{ path('admin_booking_index', {'page': page + 1}) }}">&raquo;</a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 
