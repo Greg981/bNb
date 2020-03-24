@@ -36,7 +36,7 @@ class Booking
      * @ORM\Column(type="datetime")
      * @Assert\Type("DateTime")
      * @Assert\NotBlank 
-     * @Assert\GreaterThan("today", message="check-in day must after today date" )
+     * @Assert\GreaterThan("today", message="check-in day must after today date", groups={"front"} )
      */
     private $startDate;
 
@@ -66,9 +66,10 @@ class Booking
      
 
 /**
- * Callback called for every booking
+ * Callback function called for every booking
  * 
  * @ORM\PrePersist
+ * @ORM\PreUpdate
  *
  * @return void
  */

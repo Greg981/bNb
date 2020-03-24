@@ -1,0 +1,28 @@
+{% extends 'admin/adminBase.html.twig' %}
+
+{% block title %} Modify booking n# {{booking.id}}{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid">
+    <h1 class="my-3">Manage Bookings n# {{booking.id}}  ✅</h1>
+
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.startDate) }}
+                {{ form_row(form.endDate) }}
+                {{ form_row(form.comment) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.booker) }}
+                {{ form_row(form.ad) }}
+                <button type="submit" class="btn btn-success my-2"><i class="fas fa-check"></i> Save your changes</button>
+                <a href="#" class="btn btn-danger my-1"><i class="fas fa-trash"></i></a>         
+            </div>
+        </div>
+
+     {{ form_end(form) }}  
+</div>
+
+{% endblock %}
