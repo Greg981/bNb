@@ -30,6 +30,7 @@ class AdminAdController extends AbstractController
         
         $pagination->setEntityClass(Ad::class)
                    ->setPage($page);
+            //     ->setRoute('any_other_route');    
 
         return $this->render('admin/ad/index.html.twig', [
             'pagination' => $pagination
@@ -63,8 +64,8 @@ class AdminAdController extends AbstractController
        }
 
        return $this->render('admin/ad/edit.html.twig', [
-            'ad' => $ad,
-            'form' =>$form->createView()
+            'ad'    => $ad,
+            'form'  =>$form->createView()
        ]);
     }
 
