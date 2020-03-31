@@ -75,7 +75,7 @@ class AppFixtures extends Fixture
                 $users[] = $user;
         }
 
-        // gestions des annonces
+        // Managing ads
         for ($i=1; $i <= 30 ; $i++) 
         { 
             $ad = new Ad();
