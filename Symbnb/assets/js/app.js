@@ -7,8 +7,14 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css';
+import '../css/Adminboostrap.min.css';
+import '../css/boostrap.min.css';
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 // import $ from 'jquery';
+require ('./jquery.min.js');
+require ('./popper.min.js');
+require ('./bootstrap.min.js');
+require ('./ad.js');
 
-console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
+// console.log('Hello Webpack Encore! Edit me in assets/js/app.js');
